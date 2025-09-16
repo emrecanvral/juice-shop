@@ -1,0 +1,74 @@
+contents:
+  repositories:
+    - https://packages.wolfi.dev/os
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+  packages:
+    - tzdata
+    - wolfi-baselayout
+    - ca-certificates-bundle
+    - certificates-bundle
+    - nginx
+    - nginx-package-config
+    - glibc
+    - glibc-locale-posix
+    - ld-linux
+    - libcrypt1
+    - libcrypto3
+    - libgcc
+    - libssl3
+    - libstdc++
+    - openssl-config
+    - pcre
+    - zlib
+
+entrypoint:
+  command: /usr/sbin/nginx
+
+cmd: -c /etc/nginx/nginx.conf -e /dev/stderr -g "daemon off;"
+
+paths:
+  - path: /var/lib/nginx
+    type: directory
+    uid: 65532
+    gid: 65532
+    permissions: 0o755
+    recursive: true
+  - path: /var/lib/nginx/tmp
+    uid: 65532
+    gid: 65532
+    type: directory
+    # Wide permissions required for running with tmpfs. Seems to be related to Docker bug https://github.com/moby/moby/issues/40881
+    permissions: 0o777
+    recursive: true
+  - path: /var/run
+    uid: 65532
+    gid: 65532
+    type: directory
+    # Wide permissions required for running with tmpfs. Seems to be related to Docker bug https://github.com/moby/moby/issues/40881
+    permissions: 0o777
+    recursive: true
+  - path: /run
+    uid: 65532
+    gid: 65532
+    type: directory
+    # Wide permissions required for running with tmpfs. Seems to be related to Docker bug https://github.com/moby/moby/issues/40881
+    permissions: 0o777
+    recursive: true
+  - path: /run/nginx
+    type: directory
+    uid: 65532
+    gid: 65532
+    permissions: 0o755
+
+accounts:
+  groups:
+    - groupname: nginx
+      gid: 65532
+  users:
+    - username: nginx
+      uid: 65532
+      gid: 65532
+  run-as: 65532
+
+
