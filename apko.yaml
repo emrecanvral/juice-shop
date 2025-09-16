@@ -16,7 +16,6 @@ contents:
     - libgcc
     - libssl3
     - libstdc++
-    - openssl-config
     - pcre
     - zlib
 
