@@ -1,4 +1,4 @@
-name: Bogazici-DevSecOps-Pipeline
+name: SiberLise2026-DevSecOps-Pipeline
 
 on:
   push:
